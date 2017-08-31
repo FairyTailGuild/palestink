@@ -48,19 +48,30 @@ public class TransformFilter implements Filter {
                 /*
                  * 允许全部域名
                  */
+                // （以下保留）
                 // hsr.addHeader("Access-Control-Allow-Origin", "*");
-                /*
-                 * 允许空
-                 */
-                hsr.addHeader("Access-Control-Allow-Origin", "null");
-                /*
-                 * 允许证书
-                 */
-                hsr.addHeader("Access-Control-Allow-Credentials", "true");
-                /*
-                 * 允许请求的方法
-                 */
-                hsr.addHeader("Access-Control-Allow-Methods", "POST, PUT, OPTIONS");
+                // hsr.addHeader("Access-Control-Allow-Origin", "null");
+                // String[] allowDomainList = { "http://47.92.152.242:80", "http://127.0.0.1:8080", "http://192.168.1.131:8080" };
+                // java.util.Set<String> allowedOrigins = new java.util.HashSet<String>(java.util.Arrays.asList(allowDomainList));
+
+                // if (allowedOrigins.contains(originHeader)) {
+                // hsr.setHeader("Access-Control-Allow-Origin", originHeader);
+                // /*
+                // * 允许证书
+                // */
+                // hsr.setHeader("Access-Control-Allow-Credentials", "true");
+                // /*
+                // * 允许请求的方法
+                // */
+                // hsr.setHeader("Access-Control-Allow-Methods", "POST, GET, DELETE, PUT, OPTIONS");
+                // }
+                // 接收所有header，并动态设置每一个。
+                String originHeader = ((javax.servlet.http.HttpServletRequest) request).getHeader("Origin");
+                hsr.setHeader("Access-Control-Allow-Origin", originHeader);
+                // 允许证书
+                hsr.setHeader("Access-Control-Allow-Credentials", "true");
+                // 允许请求的方法
+                hsr.setHeader("Access-Control-Allow-Methods", "POST, GET, DELETE, PUT, OPTIONS");
                 /*
                  * 实现跨域（结束）
                  */
